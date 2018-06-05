@@ -16,6 +16,19 @@
    {:country "Mexico" :gdp  30}
    {:country "Germany" :gdp  60}])
 
+(js/console.log "start")
+
+  (go (let [response (<! (http/get "https://api.myjson.com/bins/15q4p6"
+                                 {:with-credentials? false
+                                  }))]
+        (prn (map :country (:body response)))
+      )
+  )
+
+        ;;(js/console.log "end: " + response)))
+
+;;this could be a static file or an endpoint that generates the JSON
+;;(make-remote-call "https://api.myjson.com/bins/16dhqy")
 
 (defn d3-render
   [svg]
