@@ -10,36 +10,33 @@
 
 (enable-console-print!)
 
-(def data
-  [{:country "USA" :gdp  40}
-   {:country "UK" :gdp  90}
-   {:country "Mexico" :gdp  30}
-   {:country "Germany" :gdp  60}])
 
-(js/console.log "start")
-
-  (go (let [response (<! (http/get "https://api.myjson.com/bins/15q4p6"
+(defn make-remote-call [site]
+  (go (let [response (<! (http/get site
                                  {:with-credentials? false
                                   }))]
-        (prn (map :country (:body response)))
+        ;;(prn (map :country (:body response)))
+        ;;(prn (map :gdp (:body response)))
+        ;;(prn (:body response))
+        (def data
+          (:body response)
+          )
       )
   )
+)
 
-        ;;(js/console.log "end: " + response)))
-
-;;this could be a static file or an endpoint that generates the JSON
-;;(make-remote-call "https://api.myjson.com/bins/16dhqy")
+(make-remote-call "https://api.myjson.com/bins/69dqi")
 
 (defn d3-render
   [svg]
   (js/console.log "d3-render")
-
+  ;;(make-remote-call "https://api.myjson.com/bins/11ga4a")
   (let [width      (reader/read-string (.attr svg "width"))
         height     (reader/read-string (.attr svg "height"))
         array-len  (count data)
         max-value  (.max js/d3 (into-array data) (fn [d] (get d :gdp )))
         x-axis-len 200
-        y-axis-len 200
+        y-axis-len 60
         y-scale    (-> js/d3
                        (.scaleLinear)
                        (.domain #js [0 max-value])
@@ -110,7 +107,7 @@
                      :font-family "'Open Sans', sans-serif"
                      :font-size   "18px"
                      })
-        (.text "Blah Blah Blah")
+        (.text "Countries")
         (.attr :transform (ezd3/transform 230 325 0))
     )
 
@@ -121,7 +118,7 @@
                      :font-family "'Open Sans', sans-serif"
                      :font-size   "18px"
                      })
-        (.text "Blah Blah Blah")
+        (.text "GDP in Trillions")
         (.attr :transform (ezd3/transform 75 150 -90)))
     ))
 
@@ -134,6 +131,7 @@
                  }]
    [:p "See https://github.com/hiteshjasani/cljs-ezd3 for the source."]
    ])
+
 
 (reagent/render-component [hello-world]
                           (. js/document (getElementById "app")))

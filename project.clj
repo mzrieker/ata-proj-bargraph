@@ -6,5 +6,6 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.238"]
                  [cljsjs/d3 "4.12.0-0"]
+                 [org.clojure/core.async "0.4.474"]
                  [reagent "0.8.0"]]
   )
