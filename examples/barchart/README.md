@@ -1,7 +1,6 @@
-# barchart
+# ATA-Project Bargraph
 
-Example barchart using ezd3's D3 svg component.  This is an example of
-the interop, not an example of how to do D3 barcharts the best way.
+Example barchart using ezd3's D3 svg component. Reading JSON data from an online bin.
 
 ## Run
 
@@ -21,4 +20,4 @@ you will want to comment out the following line in `project.clj`.
 
 ## License
 
-Copyright © 2018 Hitesh Jasani
+Based heavily on an example that is Copyright © 2018 Hitesh Jasani
